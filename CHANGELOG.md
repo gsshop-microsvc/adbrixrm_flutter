@@ -1,5 +1,6 @@
-## 1.3.1
+## 1.4.0
 * Add new SignUpChannel (SkTid, AppleId).
+* (iOS) New Framework Updated.
 
 ## 1.3.0
 * Ci (Customer Identifier) API Updated.
