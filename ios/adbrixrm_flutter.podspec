@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'adbrixrm_flutter'
-  s.version          = '1.3.0'
+  s.version          = '1.4.0'
   s.summary          = 'Adbrix Remastered plugin for Flutter project'
   s.description      = <<-DESC
 Adbrix Remastered plugin for Flutter project
@@ -15,7 +15,7 @@ Adbrix Remastered plugin for Flutter project
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'AdBrixRemastered'
+  s.dependency 'AdBrixRemastered_XC'
   s.platform = :ios, '9.0'
 
   # Flutter.framework does not contain a i386 slice.

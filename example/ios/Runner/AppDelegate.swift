@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import AdBrixRM
+import AdBrixRM_XC
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -13,10 +13,8 @@ import AdBrixRM
   }
     
     override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // AdBrixRM 인스턴스 생성
         let adBrix = AdBrixRM.getInstance
 
-        // 딥링크 오픈 트래킹 코드 호출
         adBrix.deepLinkOpen(url: url)
 
         return false

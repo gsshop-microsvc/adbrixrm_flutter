@@ -1,6 +1,6 @@
 import Flutter
 import UIKit
-import AdBrixRM
+import AdBrixRM_XC
 
 public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeeplinkDelegate, AdBrixRMDeferredDeeplinkDelegate {
     

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AdBrixRM
+import AdBrixRM_XC
 
 public class AdBrixUtility {
     
