@@ -6,6 +6,7 @@ import 'package:adbrixrm_flutter_example/commerceEvent.dart';
 import 'package:adbrixrm_flutter_example/gameEvent.dart';
 import 'package:adbrixrm_flutter_example/userInfoEvent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -68,17 +69,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   }
 
-  Future<void> getDeferredDeeplink() async {
-
-    String? deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
-
-    if (deferredDeeplink != null) {
-      print ("DeFerredDeeplinkString :::: " + deferredDeeplink);
-    } else {
-      print ("No DeferredDeeplink String from AdBrix");
-    }
-
-  }
 
   @override
   void initState() {
@@ -89,7 +79,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
 
     Timer(Duration(seconds: 5), () {
-      getDeferredDeeplink();
+      _getDeferredDeeplink();
 
       // Only Android Needed
       if (Platform.isAndroid) {
@@ -97,6 +87,28 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       }
 
     });
+  }
+
+  Future _getDeferredDeeplink() async {
+    String? deferredDeeplink = '';
+    try {
+      deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
+      if(deferredDeeplink != null) {
+        print("AdBrixRm Deferred Deeplink :::::: " + deferredDeeplink);
+
+      } else {
+
+        print("No AdBrixRm Deferred Deeplink");
+
+      }
+    } on PlatformException {
+    }
+
+    if(deferredDeeplink != null) {
+      if(deferredDeeplink.isNotEmpty) {
+
+      }
+    }
   }
 
   void onTabTapped(int index) {
