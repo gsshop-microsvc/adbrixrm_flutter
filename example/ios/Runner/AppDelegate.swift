@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import AdBrixRM_XC
+import AdBrixRmKit
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {

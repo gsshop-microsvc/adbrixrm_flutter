@@ -1,3 +1,7 @@
+## 1.5.0
+* (Android) New Framework Updated.
+* (iOS) New Framework Updated.
+
 ## 1.4.0
 * Add new SignUpChannel (SkTid, AppleId).
 * (iOS) New Framework Updated.

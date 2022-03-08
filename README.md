@@ -11,8 +11,8 @@ AdBrixRM Plugin for Flutter Project
 
 ## Current AdBrixRM SDK version
 
-- Android :  2.1.1.0
-- iOS : 1.6.5803
+- Android :  2.1.3.0
+- iOS : 2.0.0.1
 
 ## Install the Plugin
 
@@ -20,7 +20,7 @@ Add dependencies on pubspec.yaml
 
 ```
 dependencies:
-  adbrixrm_flutter: ^1.4.0
+  adbrixrm_flutter: ^1.5.0
 ```
 
 ## Integration Guide

@@ -1,6 +1,6 @@
 import Flutter
 import UIKit
-import AdBrixRM_XC
+import AdBrixRmKit
 
 public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeeplinkDelegate, AdBrixRMDeferredDeeplinkDelegate {
     
@@ -34,18 +34,11 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
             let args = call.arguments as? [String : Any]
             let appKey = args?["AppKey"] as! String
             let secretKey = args?["SecretKey"] as! String
-            let delayTime = args?["DelayTime"] as! Int?
             
-            if delayTime != nil {
-                
-                adBrix.initAdBrixWithDelayTime(appKey: appKey, secretKey: secretKey, delaySecondTime: delayTime!)
-                
-            } else {
-                
-                adBrix.initAdBrix(appKey: appKey, secretKey: secretKey)
-                
-            }
+            adBrix.initAdBrix(appKey: appKey, secretKey: secretKey)
             
+            adBrix.didBecomeActive()
+                
             adBrix.delegateDeferredDeeplink = self
             adBrix.delegateDeeplink = self
         }
@@ -69,30 +62,7 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
                 result(nil)
             }
         }
-        
-        
-        
-        func setLogLevel (_ call:FlutterMethodCall){
-            
-            let arg = call.arguments as! String
-            switch arg {
-            case "NONE":
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.NONE)
-            case "DEBUG" :
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.DEBUG)
-            case "INFO" :
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.INFO)
-            case "WARNING" :
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.WARNING)
-            case "ERROR" :
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.ERROR)
-            case "VERBOSE" :
-                adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.TRACE)
-            default:
-                print("AdBrixRm Flutter plugin")
-            }
-        }
-        
+                
         func setEventUploadCountInterval (_ call: FlutterMethodCall) {
             
             let arg = call.arguments as! String
@@ -502,7 +472,7 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
             let categoryList = args?["categoryModel"] as! Array<String>
             
             let productListArr = AdBrixUtility.AdBrixRmMakeProductList(productList: productList)
-            let myCategory = adBrix.createCommerceProductCategoryDataByArray(categoryArray: categoryList)
+            let myCategory = AdBrixUtility.AdBrixRmMakeProductCategory(categoryList: categoryList)
             
             if attr != nil {
                 
@@ -668,8 +638,6 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         switch methodName {
         case "sdkInit":
             sdkInit (call)
-        case"setLogLevel" :
-            setLogLevel (call)
         case "setEventUploadCountInterval" :
             setEventUploadCountInterval (call)
         case"setEventUploadTimeInterval" :

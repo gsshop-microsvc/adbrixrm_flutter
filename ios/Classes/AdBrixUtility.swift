@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AdBrixRM_XC
+import AdBrixRmKit
 
 public class AdBrixUtility {
     
@@ -124,13 +124,15 @@ public class AdBrixUtility {
             }
         }
         
+        
+        
         if productAttr != nil {
             
-            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: productAttr!))
+            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: AdBrixUtility.AdBrixRmMakeProductCategory(categoryList: category!), productAttrsMap: AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: productAttr!))
                         
         } else {
             
-            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: nil)
+            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: AdBrixUtility.AdBrixRmMakeProductCategory(categoryList: category!), productAttrsMap: nil)
             
         }
         
@@ -150,6 +152,45 @@ public class AdBrixUtility {
         }
         
         return arr
+        
+    }
+    
+    public static func AdBrixRmMakeProductCategory (categoryList : Array<String>) -> AdBrixRmCommerceProductCategoryModel {
+        
+        let adBrix = AdBrixRM.getInstance
+        var categoryResult = AdBrixRmCommerceProductCategoryModel()
+        
+        let categoryCount : Int = categoryList.count
+        
+        if categoryCount == 1 {
+            
+            categoryResult = adBrix.createCommerceProductCategoryData(category: categoryList[0])
+            
+        } else if categoryCount == 2 {
+            
+            categoryResult = adBrix.createCommerceProductCategoryData(category: categoryList[0], category2: categoryList[1])
+            
+        } else if categoryCount == 3 {
+            
+            categoryResult = adBrix.createCommerceProductCategoryData(category: categoryList[0], category2: categoryList[1], category3: categoryList[2])
+
+        } else if categoryCount == 4 {
+            
+            categoryResult = adBrix.createCommerceProductCategoryData(category: categoryList[0], category2: categoryList[1], category3: categoryList[2], category4: categoryList[3])
+
+        } else {
+            
+            categoryResult = adBrix.createCommerceProductCategoryData(category: categoryList[0], category2: categoryList[1], category3: categoryList[2], category4: categoryList[3], category5: categoryList[4])
+
+        }
+        
+        
+        return categoryResult
+        
+
+        
+        
+            
         
     }
     

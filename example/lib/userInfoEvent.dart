@@ -214,8 +214,8 @@ class _userInfoViewState extends State<userInfoView> {
       'married': false
     };
 
-    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.Naver, attr: properties);
-    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.Facebook);
+    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.SkTid, attr: properties);
+    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.AppleId);
   }
 
   Future<void> useCredit() async {
