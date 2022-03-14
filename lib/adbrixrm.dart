@@ -39,8 +39,6 @@ enum AdBrixInviteChannel {
   ETC
 }
 
-enum AdBrixLogLevel { NONE, VERBOSE, DEBUG, INFO, WARNING, ERROR }
-
 enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
 
 class AdBrixRm {
@@ -756,12 +754,6 @@ class AdBrixRm {
 
   static void setGender({required AdBrixGender gender}) {
     _channel.invokeMethod('setGender', gender.toString().split('.').last);
-  }
-
-  static void setLogLevel({required AdBrixLogLevel logLevel}) {
-    _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
-
-    print(logLevel.toString().split('.').last);
   }
 
   static void setKakaoId({required String kakaoId}) {
