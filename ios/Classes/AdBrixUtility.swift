@@ -184,13 +184,7 @@ public class AdBrixUtility {
 
         }
         
-        
         return categoryResult
-        
-
-        
-        
-            
         
     }
     
