@@ -41,8 +41,79 @@ enum AdBrixInviteChannel {
 
 enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
 
+typedef void DeferredDeeplinkCallback(String? uri);
+typedef void DeeplinkCallback(String? uri);
+
+
 class AdBrixRm {
+
+  AdBrixRm() {
+    _onMethodCall();
+  }
+
+
+  DeferredDeeplinkCallback? deferredDeeplinkCallback;
+  DeeplinkCallback? deeplinkCallback;
+
+
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
+
+
+
+  void _onMethodCall() {
+    _channel.setMethodCallHandler((MethodCall call) async{
+
+      switch(call.method) {
+
+        case "dfnFlutterDeferredDeeplink" :
+          if(deferredDeeplinkCallback != null){
+            deferredDeeplinkCallback!(call.arguments);
+          }
+          break;
+        case "dfnFlutterDeeplink" :
+          if(deeplinkCallback != null) {
+            deeplinkCallback!(call.arguments);
+          }
+          break;
+        default:
+          print('no method handler for method ${call.method}');
+      }
+
+    });
+
+  }
+
+  static Future<void> _dfnFlutterDeferredDeeplink(MethodCall call) async {
+
+    final String dataFromNative = call.arguments;
+
+    // 네이티브에서 호출하는 리스너명과 동일해야 한다.
+    // 데이터를 받아오고 난 다음에 처리할 내용을 적는다.
+    // 디퍼드 딥링크 정보를 리턴하도록 처리하면 될 것 같다.
+    // TO_DO : 고객이 사용하는 플러터 인터페이스에 이벤트 리스너를 제공해야 한다.
+    print('Get Deferred Data Successfully From Native Side');
+    print(dataFromNative);
+    print('------------');
+    // you can handle the data here. In this example, we will simply update the view via a data service
+
+  }
+
+  static Future<void> _dfnFlutterDeeplink(MethodCall call) async {
+
+
+    final String dataFromNative = call.arguments;
+
+    // 네이티브에서 호출하는 리스너명과 동일해야 한다.
+    // 데이터를 받아오고 난 다음에 처리할 내용을 적는다.
+    // 디퍼드 딥링크 정보를 리턴하도록 처리하면 될 것 같다.
+    // TO_DO : 고객이 사용하는 플러터 인터페이스에 이벤트 리스너를 제공해야 한다.
+    print('Get Deeplink Data Successfully From Native Side');
+    print(dataFromNative);
+    print('------------');
+    // you can handle the data here. In this example, we will simply update the view via a data service
+
+
+  }
 
   static Future<String?> get adbrixDeeplink async {
     String? deeplink = await _channel.invokeMethod('adbrixDeeplink');

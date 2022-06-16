@@ -781,6 +781,9 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
         if (deeplink != null) {
             myDeferredDeeplink = deeplink;
+
+            channel.invokeMethod("dfnFlutterDeferredDeeplink", deeplink);
+
         }
 
     }
@@ -790,6 +793,11 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
         if (deeplink != null) {
             myDeeplink = deeplink;
+
+            channel.invokeMethod("dfnFlutterDeeplink", deeplink);
+
+            Log.d("peterworks", "my Deeplink : " + deeplink);
+
 
         }
 

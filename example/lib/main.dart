@@ -13,11 +13,14 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+
+  AdBrixRm adBrixRm = new AdBrixRm();
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
@@ -52,64 +55,29 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (currentState == AppLifecycleState.resumed) {
       print("App is onResume");
 
-      Timer(Duration(seconds: 3), () {
-        getDeeplink();
-      });
+      adBrixRm.deeplinkCallback = (String? uri) {
+        print('[AdBrixRm]: Received deferred deeplink: ' + uri!);
+      };
+
     }
   }
 
-  Future<void> getDeeplink() async {
-    String? deeplink = await AdBrixRm.adbrixDeeplink;
-
-    if (deeplink != null) {
-      print ("DeeplinkString ::::: " + deeplink);
-    } else {
-      print ("No Deeplink String from AdBrix");
-    }
-
-  }
 
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     AdBrixRm.sdkInit(
         appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
 
-    Timer(Duration(seconds: 5), () {
-      _getDeferredDeeplink();
+    adBrixRm.deferredDeeplinkCallback = (String? uri) {
+      print('[AdBrixRm]: Received deferred deeplink: ' + uri!);
+    };
 
-      // Only Android Needed
-      if (Platform.isAndroid) {
-        getDeeplink();
-      }
-
-    });
   }
 
-  Future _getDeferredDeeplink() async {
-    String? deferredDeeplink = '';
-    try {
-      deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
-      if(deferredDeeplink != null) {
-        print("AdBrixRm Deferred Deeplink :::::: " + deferredDeeplink);
-
-      } else {
-
-        print("No AdBrixRm Deferred Deeplink");
-
-      }
-    } on PlatformException {
-    }
-
-    if(deferredDeeplink != null) {
-      if(deferredDeeplink.isNotEmpty) {
-
-      }
-    }
-  }
 
   void onTabTapped(int index) {
     switch (index) {
