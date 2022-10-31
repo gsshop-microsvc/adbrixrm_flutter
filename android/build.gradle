@@ -4,18 +4,17 @@ version '1.6.0'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.6.0'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         gradle.projectsEvaluated {
             tasks.withType(JavaCompile) {
